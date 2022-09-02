@@ -49,6 +49,7 @@ func main() {
 	})
 
 	r.POST("/login", productHand.Login)
+	r.GET("/products", productHand.GetProducts)
 
 	routeGroup := r.Group("", auth.Protect([]byte(os.Getenv("SIGN"))))
 	routeGroup.Use(cors.New(config))

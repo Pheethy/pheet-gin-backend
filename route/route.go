@@ -15,6 +15,6 @@ func NewRoute(e *gin.RouterGroup) Route {
 }
 
 func (r Route) RegisterProduct(handler product.ProductHandler) {
-	r.e.GET("/products", handler.GetProducts)
+	// r.e.GET("/products", handler.GetProducts)
 	// r.e.GET("/product/:id", handler.GetProductById)
 }
