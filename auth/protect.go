@@ -25,7 +25,6 @@ func Protect(signature []byte) gin.HandlerFunc {
 		if err != nil {
 			c.AbortWithError(http.StatusUnauthorized, err)
 		}
-
 		c.Next()
 	}
 }

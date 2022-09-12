@@ -24,4 +24,4 @@ type SignUpReq struct {
 
 func (s Product) IsEmpty() bool {
 	return reflect.DeepEqual(s,Product{})
-  }
+}

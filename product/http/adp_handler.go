@@ -44,7 +44,7 @@ func (p productHandler) GetProductById(c *gin.Context) {
 	}
 
 	if product == nil {
-		c.JSON(http.StatusNotFound, gin.H{"error": "productNotFound"})
+		c.JSON(http.StatusNotFound, gin.H{"error": err.Error()})
 	}
 
 	resp := map[string]interface{}{
