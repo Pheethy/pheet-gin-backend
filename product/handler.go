@@ -6,4 +6,5 @@ import (
 
 type ProductHandler interface {
 	GetProducts(c *gin.Context)
+	GetProductById(c *gin.Context)
 }

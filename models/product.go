@@ -1,5 +1,7 @@
 package models
 
+import "reflect"
+
 type Product struct {
 	Id int `db:"id" json:"id"`
 	Name string `db:"name" json:"name"`
@@ -19,3 +21,7 @@ type SignUpReq struct {
 	UserName string `db:"username" json:"username"`
 	Password string `db:"password" json:"password"`
 }
+
+func (s Product) IsEmpty() bool {
+	return reflect.DeepEqual(s,Product{})
+  }

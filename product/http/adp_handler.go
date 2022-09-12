@@ -3,9 +3,10 @@ package handler
 import (
 	"net/http"
 	"os"
-	"pheet-gin-backend/product"
-	"pheet-gin-backend/models"
 	"pheet-gin-backend/auth"
+	"pheet-gin-backend/models"
+	"pheet-gin-backend/product"
+	"strconv"
 
 	"github.com/gin-gonic/gin"
 	"golang.org/x/crypto/bcrypt"
@@ -32,10 +33,31 @@ func (p productHandler) GetProducts(c *gin.Context) {
 	c.JSON(http.StatusOK, resp)
 }
 
+func (p productHandler) GetProductById(c *gin.Context) {
+	id, err  := strconv.Atoi(c.Param("id"))
+	if err != nil {
+		c.AbortWithError(http.StatusUnprocessableEntity, err)
+	}
+	product, err := p.proServ.GetProduct(id)
+	if err != nil {
+		c.AbortWithError(http.StatusInternalServerError, err)
+	}
+
+	if product == nil {
+		c.JSON(http.StatusNotFound, gin.H{"error": "productNotFound"})
+	}
+
+	resp := map[string]interface{}{
+		"product": product,
+	}
+
+	c.JSON(http.StatusOK, resp)
+}
+
 func (h productHandler) Login(c *gin.Context) {
 	var request = models.User{}
 
-	err := c.BindJSON(&request)
+	err := c.ShouldBindJSON(&request)
 	if err != nil {
 		c.AbortWithError(http.StatusUnprocessableEntity, err)
 	}

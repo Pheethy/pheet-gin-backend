@@ -36,20 +36,13 @@ func main() {
 
 	r := gin.Default()
 	config := cors.DefaultConfig()
-	config.AllowOrigins = []string{
-		"http://localhost:8080",
-	}
-	config.AllowHeaders = []string {
-		"Origin",
-		"Authorization",
-	}
+	config.AllowAllOrigins = true
 	r.Use(cors.New(config))
 	r.GET("/", func(ctx *gin.Context) {
-		ctx.JSON(http.StatusOK, "Hello Golang")
+		ctx.JSON(http.StatusOK, "Bizcuitware Web!!!")
 	})
 
 	r.POST("/login", productHand.Login)
-	r.GET("/products", productHand.GetProducts)
 
 	routeGroup := r.Group("", auth.Protect([]byte(os.Getenv("SIGN"))))
 	routeGroup.Use(cors.New(config))
